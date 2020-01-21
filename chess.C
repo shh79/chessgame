@@ -412,7 +412,7 @@ void player1()
 {
     int p1 , p2 , c1 , r1 , c2 , r2;
 
-    printf( "\nPLAYER 1 - Big Case EXP" ) ;
+    printf( "\nPLAYER 1 - Big Case" ) ;
     printf("\tWHITE KILL: %d\tBLACK KILL: %d\n",killw,killb);
     again1:
     printf( "\nEnter Position of Element to change ( RC ): " ) ;
