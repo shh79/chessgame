@@ -492,7 +492,7 @@ void player1()
         	break;
                   
         default: change (r1,c1,r2,c2) ;
-    }	*/
+    } h	*/
     
     
     
