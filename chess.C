@@ -160,18 +160,20 @@ void pawn( int r1 , int c1 ) // paido
 
 void rook( int r1 , int c1 )
 {
-    int i , j , n ;
+    int i , j , n , k=0;
 
     printf( "Available are: \n" ) ;
 
     n=c1;
-
+	
     printf( "Horizontally: \n" ) ;
 
     while( board[r1][n-1] == ' ' || check3(r1,n-1) )
     {
         if( n == 0 ) { break ; }
         printf( "%d%d , " , r1 , n-1 ) ;
+        lim[k]=(r1*10)+(n-1);
+        ++k;
         n-- ;
     }
 
@@ -181,6 +183,8 @@ void rook( int r1 , int c1 )
     {
 
         printf( "%d%d , " , r1 , n+1 ) ;
+        lim[k]=(r1*10)+(n+1);
+        ++k;
         ++n ;
     }
 
@@ -191,6 +195,8 @@ void rook( int r1 , int c1 )
     while( ( board[n-1][c1] == ' ' || check3(n-1,c1) ) && n > -1 )
     {
         printf( "%d%d , " , n-1 , c1 ) ;
+        lim[k]=((n-1)*10)+c1;
+        ++k;
         --n ;
     }
 
@@ -199,6 +205,8 @@ void rook( int r1 , int c1 )
     while( (board[n+1][c1] == ' ' || check3(n+1,c1) ) && ( (n) <= 7 ) )
     {
         printf( "%d%d , " , n+1 , c1 ) ;
+        lim[k]=((n+1)*10)+c1;
+        ++k;
         ++n ;
     }
 
@@ -206,29 +214,64 @@ void rook( int r1 , int c1 )
 
 void horse( int r1 , int c1 )
 {
+	int i=0;
     printf( "Available are: " ) ;
 
 
-    if( board[r1+2][c1+1] == ' ' || check3(r1+2,c1+1) ) printf( "%d%d, " , r1+2 ,c1+1) ;
-    if( board[r1+2][c1-1] == ' ' || check3(r1+2,c1-1) ) { if( (c1-1) > -1 ) printf( "%d%d, " , r1+2, c1-1 ) ; }
+    if( board[r1+2][c1+1] == ' ' || check3(r1+2,c1+1) ){
+		printf( "%d%d, " , r1+2 ,c1+1) ;
+		lim[i]=((r1+2)*10)+(c1+1);
+		++i;
+	}
+    if( board[r1+2][c1-1] == ' ' || check3(r1+2,c1-1) ) { 
+		if( (c1-1) > -1 ){
+			printf( "%d%d, " , r1+2, c1-1 ) ; 
+			lim[i]=((r1+2)*10)+(c1-1);
+			++i;
+		}
+	}
 
-    if( board[r1+1][c1+2] == ' ' || check3(r1+1,c1+2) ) {  if( (c1+2) != 8 ) printf( "%d%d, " , r1+1 , c1+2 ) ; }
-    if( board[r1-1][c1+2] == ' ' || check3(r1-1,c1+2) ) {  printf( "%d%d, " , r1-1 , c1+2 ) ; }
+    if( board[r1+1][c1+2] == ' ' || check3(r1+1,c1+2) ) {  
+		if( (c1+2) != 8 ){
+			printf( "%d%d, " , r1+1 , c1+2 ) ;
+			lim[i]=((r1+1)*10)+(c1+2);
+			++i;
+		}
+	}
+    if( board[r1-1][c1+2] == ' ' || check3(r1-1,c1+2) ) {  
+		printf( "%d%d, " , r1-1 , c1+2 ) ; 
+		lim[i]=((r1-1)*10)+(c1+2);
+		++i;
+	}
 
     if( board[r1-2][c1-1] == ' ' || check3(r1-2,c1-1) )
     {
-        if( (c1-1) != -1 )
-        printf( "%d%d, " , r1-2 , c1-1 ) ;
+        if( (c1-1) != -1 ){
+        	printf( "%d%d, " , r1-2 , c1-1 ) ;
+        	lim[i]=((r1-2)*10)+(c1-1);
+        	++i;
+    	}
     }
 
-    if( board[r1-2][c1+1] == ' ' || check3(r1-2,c1+1) ) printf( "%d%d, " , r1-2 , c1+1 ) ;
+    if( board[r1-2][c1+1] == ' ' || check3(r1-2,c1+1) ) {
+		printf( "%d%d, " , r1-2 , c1+1 ) ;
+		lim[i]=((r1-2)*10)+(c1+1);
+		++i;
+	}
 
-    if( board[r1+1][c1-2] == ' ' || check3(r1+1,c1-2) ) printf( "%d%d, " , r1+1 , c1-2 ) ;
+    if( board[r1+1][c1-2] == ' ' || check3(r1+1,c1-2) ) {
+		printf( "%d%d, " , r1+1 , c1-2 ) ;
+		lim[i]=((r1+1)*10)+(c1-2);
+		++i;
+	}
 
     if( board[r1-1][c1-2] == ' ' || check3(r1-1,c1-2) )
     {
-        if( (c1-2) != -1 )
+        if( (c1-2) != -1 ){
             printf( "%d%d, " , r1-1 , c1-2 ) ;
+        	lim[i]=((r1-1)*10)+(c1-2);
+			++i;  
+        }
     }
 }
 
@@ -470,6 +513,12 @@ void player1()
 
     c1 = p1 % 10 ;
     r1 = p1 / 10 ;
+    
+    
+    for (i=0 ; i<100 ; ++i) {
+    	lim[i]=0;
+	}
+    
 
     switch( board[r1][c1] )
     {
@@ -540,7 +589,6 @@ void player1()
 	}
     
     
-    
     /*switch( board[r2][c2] )
     {
         case 'p': 
@@ -578,6 +626,12 @@ void player2()
 
     c1 = p1 % 10 ;
     r1 = p1 / 10 ;
+    
+    
+    for (i=0 ; i<100 ; ++i) {
+    	lim[i]=0;
+	}
+    
 
     switch( board[r1][c1] )
     {
