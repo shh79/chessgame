@@ -107,9 +107,9 @@ void change( int r1 , int c1 , int r2 , int c2 )
 
 void pawn( int r1 , int c1 ) // paido
 {
-    pwstatus[c1]++;
-
-	int i;
+    int i;
+    
+	pwstatus[c1]++;
 	
 	
 	for (i=0;i<100;++i){
@@ -130,7 +130,7 @@ void pawn( int r1 , int c1 ) // paido
 
         if( board[r1+2][c1] == ' ' ){
         	printf( "%d%d , " , r1+2 , c1 ) ;
-        	lim[i]=((r1+2)*10)+c1;
+			lim[i]=((r1+2)*10)+c1;
         	++i;
 		}
 	
@@ -460,7 +460,7 @@ void pawnb( int r1 , int c1 ) // paido black
 
 void player1()
 {
-    int p1 , p2 , c1 , r1 , c2 , r2 , i;
+    int p1 , p2 , c1 , r1 , c2 , r2 , i , j;
 
     printf( "\nPLAYER 1 - Big Case" ) ;
     printf("\tWHITE KILL: %d\tBLACK KILL: %d\n",killw,killb);
@@ -496,16 +496,22 @@ void player1()
     scanf( "%d" , &p2 ) ;
 	
 	i=0;
-	
-	for(i=0;i<100;++i){
+	j=0;
+	for(i=0; i<100 ;++i){
 		if(lim[i]==p2){
 			break;
 		}
 		else {
-			printf("Invalid Position ! ");
-			goto again5;
+			++j;
 		}	
 	}
+	
+	if(j==100){
+		printf("Invalid Position !");
+		goto again5;
+	}
+	
+	
 	
     c2 = p2 % 10 ;
     r2 = p2 / 10  ;
@@ -562,7 +568,7 @@ void player1()
 
 void player2()
 {
-    int p1 , p2 , c1 , r1 , c2 , r2 , i;
+    int p1 , p2 , c1 , r1 , c2 , r2 , i , j;
 
     printf( "\nPLAYER 2 - Small Case") ;
     printf("\tWHITE KILL: %d\tBLACK KILL: %d\n",killw,killb);
@@ -598,15 +604,19 @@ void player2()
     scanf( "%d" , &p2 ) ;
     
     i=0;
-    
-    for(i=0;i<100;++i){
+	j=0;
+	for(i=0; i<100 ;++i){
 		if(lim[i]==p2){
 			break;
 		}
 		else {
-			printf("Invalid Position ! ");
-			goto again6;
+			++j;
 		}	
+	}
+	
+	if(j==100){
+		printf("Invalid Position !");
+		goto again6;
 	}
     
     c2 = p2 % 10 ;
