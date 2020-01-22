@@ -278,7 +278,7 @@ void horse( int r1 , int c1 )
 
 void camel( int r1 , int c1 )
 {
-    int a , b , c , d ;
+    int a , b , c , d , i=0;
     printf( "Available are: \n" ) ;
 
 
@@ -288,6 +288,8 @@ void camel( int r1 , int c1 )
     {
         if( (r1-a) == -1 || (c1+b) == 8 ) break ;
         printf( "%d%d , " , r1-a , c1+b ) ;
+        lim[i]=((r1-a)*10)+(c1+b);
+        ++i;
         a++ ;
         b++ ;
     }
@@ -299,6 +301,8 @@ void camel( int r1 , int c1 )
     {
         if( (r1+a) == 8 || (c1-b) == -1 ) break ;
         printf( "%d%d , " , r1+a , c1-b ) ;
+        lim[i]=((r1+a)*10)+(c1-b);
+        ++i;
         a++ ;
         b++ ;
     }
@@ -310,6 +314,8 @@ void camel( int r1 , int c1 )
     {
         if( (r1+a) == 8 || (c1+b) == 8 ) break ;
         printf( "%d%d , " , r1+a , c1+b ) ;
+        lim[i]=((r1+a)*10)+(c1+b);
+        ++i;
         a++ ;
         b++ ;
     }
@@ -321,6 +327,8 @@ void camel( int r1 , int c1 )
     {
         if( (r1-a) == -1 || (c1-b) == -1 ) break ;
         printf( "%d%d , " , r1-a , c1-b ) ;
+        lim[i]=((r1-a)*10)+(c1-b);
+        ++i;
         a++ ;
         b++ ;
     }
@@ -329,38 +337,63 @@ void camel( int r1 , int c1 )
 
 void king( int r1 , int c1 )
 {
+	int i=0;
     printf( "Available are: " ) ;
 								
-    if( board[r1][c1+1] == ' ' || check3(r1,c1+1) ) printf( "%d%d , " , r1 , c1+1 ) ;
+    if( board[r1][c1+1] == ' ' || check3(r1,c1+1) ) {
+		printf( "%d%d , " , r1 , c1+1 ) ;
+		lim[i]=((r1)*10)+(c1+1);
+		++i;
+	}
 
-    if( board[r1][c1-1] == ' ' || check3(r1,c1-1) ) printf( "%d%d , " , r1 , c1-1 ) ;
+    if( board[r1][c1-1] == ' ' || check3(r1,c1-1) ) {
+		printf( "%d%d , " , r1 , c1-1 ) ;
+		lim[i]=((r1)*10)+(c1-1);
+		++i;
+	}
 
-    if( board[r1+1][c1] == ' ' || check3(r1+1,c1) ) printf( "%d%d , " , r1+1 , c1 ) ;
+    if( board[r1+1][c1] == ' ' || check3(r1+1,c1) ) {
+		printf( "%d%d , " , r1+1 , c1 ) ;
+		lim[i]=((r1+1)*10)+(c1);
+		++i;
+	}
 
-    if( board[r1-1][c1] == ' ' || check3(r1-1,c1) ) printf( "%d%d , " , r1-1 , c1 ) ;
+    if( board[r1-1][c1] == ' ' || check3(r1-1,c1) ) {
+		printf( "%d%d , " , r1-1 , c1 ) ;
+		lim[i]=((r1-1)*10)+(c1);
+		++i;
+	}
 
-    if( board[r1+1][c1+1] == ' ' || check3(r1+1,c1+1) ) printf( "%d%d , " , r1+1 , c1+1 ) ;
+    if( board[r1+1][c1+1] == ' ' || check3(r1+1,c1+1) ) {
+		printf( "%d%d , " , r1+1 , c1+1 ) ;
+		lim[i]=((r1+1)*10)+(c1+1);
+		++i;
+	}
 
-    if( board[r1-1][c1-1] == ' ' || check3(r1-1,c1-1) ) printf( "%d%d , " , r1-1 , c1-1 ) ;
+    if( board[r1-1][c1-1] == ' ' || check3(r1-1,c1-1) ) {
+		printf( "%d%d , " , r1-1 , c1-1 ) ;
+		lim[i]=((r1-1)*10)+(c1-1);
+		++i;
+	}
 
-    if( board[r1-1][c1+1] == ' ' || check3(r1-1,c1+1) ) printf( "%d%d , " , r1-1 , c1+1 ) ;
+    if( board[r1-1][c1+1] == ' ' || check3(r1-1,c1+1) ) {
+		printf( "%d%d , " , r1-1 , c1+1 ) ;
+		lim[i]=((r1-1)*10)+(c1+1);
+		++i;
+	}
 
-    if( board[r1+1][c1-1] == ' ' || check3(r1+1,c1-1) ) printf( "%d%d , " , r1+1 , c1-1 ) ;
+    if( board[r1+1][c1-1] == ' ' || check3(r1+1,c1-1) ) {
+		printf( "%d%d , " , r1+1 , c1-1 ) ;
+		lim[i]=((r1+1)*10)+(c1-1);
+		++i;
+	}
     
-    /* else {
-    	printf ("\nTake another Piece !!!\n");
-    	if (turn%2==0) {
-			player2();	
-		}
-		else {
-    		player1();
-    	}
-	} */
+    
 }
 
 void queen( int r1 , int c1 )
 {
-    int x=1 , y=1 , a , b ;
+    int x=1 , y=1 , a , b , i=0;
     printf( "Available are: " ) ;
 
     printf( "Horizontal: " ) ;
@@ -369,6 +402,8 @@ void queen( int r1 , int c1 )
     {
         if( (c1-y) == -1 ) break ;
         printf( "%d%d , " , r1 , c1-y ) ;
+        lim[i]=((r1)*10)+(c1-y);
+        ++i;
         y++ ;
     }
 
@@ -378,6 +413,8 @@ void queen( int r1 , int c1 )
     {
         if( (c1+y) == 8 ) break ;
         printf( "%d%d , " , r1 , c1+y ) ;
+        lim[i]=((r1)*10)+(c1+y);
+        ++i;
         y++ ;
     }
 
@@ -389,6 +426,8 @@ void queen( int r1 , int c1 )
     {
         if( (r1-x) == -1 ) break ;
         printf( "%d%d , " , r1-x , c1 ) ;
+        lim[i]=((r1-x)*10)+(c1);
+        ++i;
         x++ ;
     }
 
@@ -398,6 +437,8 @@ void queen( int r1 , int c1 )
     {
         if( (r1+x) == 8 ) break ;
         printf( "%d%d , " , r1+x , c1 ) ;
+        lim[i]=((r1+x)*10)+(c1);
+        ++i;
         x++ ;
     }
 
@@ -409,6 +450,8 @@ void queen( int r1 , int c1 )
     {
         if( (r1-a) == -1 || (c1+b) == 8 ) break ;
         printf( "%d%d , " , r1-a , c1+b ) ;
+        lim[i]=((r1-a)*10)+(c1+b);
+        ++i;
         a++ ;
         b++ ;
     }
@@ -420,6 +463,8 @@ void queen( int r1 , int c1 )
     {
         if( (r1+a) == 8 || (c1-b) == -1 ) break ;
         printf( "%d%d , " , r1+a , c1-b ) ;
+        lim[i]=((r1+a)*10)+(c1-b);
+        ++i;
         a++ ;
         b++ ;
     }
@@ -431,6 +476,8 @@ void queen( int r1 , int c1 )
     {
         if( (r1+a) == 8 || (c1+b) == 8 ) break ;
         printf( "%d%d , " , r1+a , c1+b ) ;
+        lim[i]=((r1+a)*10)+(c1+b);
+        ++i;
         a++ ;
         b++ ;
     }
@@ -442,6 +489,8 @@ void queen( int r1 , int c1 )
     {
         if( (r1-a) == -1 || (c1-b) == -1 ) break ;
         printf( "%d%d , " , r1-a , c1-b ) ;
+        lim[i]=((r1-a)*10)+(c1-b);
+        ++i;
         a++ ;
         b++ ;
     }
