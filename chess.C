@@ -36,6 +36,8 @@ int turn =0;
 
 int killw=0; int killb=0;
 
+int lim[100]={};
+
 main()
 {
 //int  x = 0 ;
@@ -107,28 +109,52 @@ void pawn( int r1 , int c1 ) // paido
 {
     pwstatus[c1]++;
 
+	int i;
+	
+	
+	for (i=0;i<100;++i){
+		lim[i]=0;
+	}
+	
+	i=0;
+	
     printf( "Available are: \n" ) ;
 
    if( pwstatus[c1] == 1 )
     {
-        if( board[r1+1][c1] == ' ' )
-        printf( "%d%d , " , r1+1 , c1 ) ;
+        if( board[r1+1][c1] == ' ' ){
+        	printf( "%d%d , " , r1+1 , c1 ) ;
+        	lim[i]=((r1+1)*10)+c1;
+        	++i;
+    	}
 
-        if( board[r1+2][c1] == ' ' )
-        printf( "%d%d , " , r1+2 , c1 ) ;
-
+        if( board[r1+2][c1] == ' ' ){
+        	printf( "%d%d , " , r1+2 , c1 ) ;
+        	lim[i]=((r1+2)*10)+c1;
+        	++i;
+		}
+	
     }
     else
     {
-        if(board[r1+1][c1] == ' ' )
-        printf( "%d%d , " , r1+1 , c1 ) ;
-
-        if( check(r1+1 , c1+1) == 1 )
-        printf( "%d%d* , " , r1+1 , c1+1 ) ;
-
-        if( check(r1+1 , c1-1) == 1 )
-        printf( "%d%d* , " , r1+1 , c1-1 ) ;
-    }
+        if(board[r1+1][c1] == ' ' ){
+        	printf( "%d%d , " , r1+1 , c1 ) ;
+        	lim[i]=((r1+1)*10)+c1;
+        	++i;
+		}
+        if( check(r1+1 , c1+1) == 1 ){
+        	printf( "%d%d* , " , r1+1 , c1+1 ) ;
+        	lim[i]=((r1+1)*10)+(c1+1);
+        	++i;
+		}
+        if( check(r1+1 , c1-1) == 1 ){
+        	printf( "%d%d* , " , r1+1 , c1-1 ) ;
+        	lim[i]=((r1+1)*10)+(c1-1);
+        	++i;
+		}
+	
+	
+	}
 
 }
 
@@ -382,35 +408,59 @@ void queen( int r1 , int c1 )
 void pawnb( int r1 , int c1 ) // paido black
 {
     pbstatus[c1]++;
+    
+    
+    int i;
+	
+	
+	for (i=0;i<100;++i){
+		lim[i]=0;
+	}
+	
+	i=0;
+	
 
     printf( "Available are: \n" ) ;
 
 
     if( pbstatus[c1] == 1 )
     {
-        if( board[r1-1][c1] == ' ' )
-        printf( "%d%d , " , r1-1 , c1 ) ;
-
-        if( board[r1-2][c1] == ' ' )
-        printf( "%d%d , " , r1-2 , c1 ) ;
+        if( board[r1-1][c1] == ' ' ){
+        	printf( "%d%d , " , r1-1 , c1 ) ;
+			lim[i]=((r1-1)*10)+c1;
+        	++i;
+		}
+        if( board[r1-2][c1] == ' ' ){
+        	printf( "%d%d , " , r1-2 , c1 ) ;
+        	lim[i]=((r1-2)*10)+c1;
+        	++i;
+    	}
+    	
     }
     else
     {
-        if(board[r1-1][c1] == ' ' )
-        printf( "%d%d , " , r1-1 , c1 ) ;
-
-        if( check2(r1-1 , c1-1) == 1 )
-        printf( "%d%d* , " , r1-1 , c1-1 ) ;
-
-        if( check2(r1-1 , c1+1) == 1 )
-        printf( "%d%d* , " , r1-1 , c1+1 ) ;
+        if(board[r1-1][c1] == ' ' ){
+        	printf( "%d%d , " , r1-1 , c1 ) ;
+        	lim[i]=((r1-1)*10)+c1;
+        	++i;
+		}
+        if( check2(r1-1 , c1-1) == 1 ){
+        	printf( "%d%d* , " , r1-1 , c1-1 ) ;
+			lim[i]=((r1-1)*10)+(c1-1);
+        	++i;
+		}
+        if( check2(r1-1 , c1+1) == 1 ){
+        	printf( "%d%d* , " , r1-1 , c1+1 ) ;
+        	lim[i]=((r1-1)*10)+(c1+1);
+        	++i;
+    	}
     }
 
 }
 
 void player1()
 {
-    int p1 , p2 , c1 , r1 , c2 , r2;
+    int p1 , p2 , c1 , r1 , c2 , r2 , i;
 
     printf( "\nPLAYER 1 - Big Case" ) ;
     printf("\tWHITE KILL: %d\tBLACK KILL: %d\n",killw,killb);
@@ -444,7 +494,19 @@ void player1()
 	
     printf( "\nEnter Position of Place to Send ( RC ): " ) ;
     scanf( "%d" , &p2 ) ;
-
+	
+	i=0;
+	
+	for(i=0;i<100;++i){
+		if(lim[i]==p2){
+			break;
+		}
+		else {
+			printf("Invalid Position ! ");
+			goto again5;
+		}	
+	}
+	
     c2 = p2 % 10 ;
     r2 = p2 / 10  ;
 
@@ -500,7 +562,7 @@ void player1()
 
 void player2()
 {
-    int p1 , p2 , c1 , r1 , c2 , r2;
+    int p1 , p2 , c1 , r1 , c2 , r2 , i;
 
     printf( "\nPLAYER 2 - Small Case") ;
     printf("\tWHITE KILL: %d\tBLACK KILL: %d\n",killw,killb);
@@ -534,7 +596,19 @@ void player2()
 	
     printf( "\nEnter Position of Place to Send ( RC ): " ) ;
     scanf( "%d" , &p2 ) ;
-
+    
+    i=0;
+    
+    for(i=0;i<100;++i){
+		if(lim[i]==p2){
+			break;
+		}
+		else {
+			printf("Invalid Position ! ");
+			goto again6;
+		}	
+	}
+    
     c2 = p2 % 10 ;
     r2 = p2 / 10  ;
 
