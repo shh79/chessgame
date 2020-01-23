@@ -28,18 +28,18 @@ void queen( int , int ) ;
 void pawnb( int , int ) ;
 void player1();
 void player2();
+void TheQueen();
+void Theking();
+void Thecshop();
+void Thehours();
+void TheRook();
+void ThePawn();
 void help();
 int check(int , int ) ;
 int check2(int , int ) ;
 int check3(int , int ) ;
-//timer
-int printData();  
-int selection();
-void delay(int ); 
-int counter();
-int hour=0,minute=0,second=0,flag=0;
 
-
+int ctr=0;
 int turn =0;
 
 int killw=0; int killb=0;
@@ -53,6 +53,7 @@ char x[15] = "color ";
 x[6] = '\0';
  x[7] = '\0';
 //int  x = 0 ;
+int num;
 char ch , H;
 	
 	system ("color 06");
@@ -64,7 +65,11 @@ char ch , H;
 	colorchanger:
 	
 	printf(" CHANGE COLOR AS YOU LIKE ... \n  1.Background .  \n  2.Text .   \n  3.Both of Them .	\n \
- 0.Current color .	\n Enter another number to exit ...\n");
+ 0.Current color .	\n");
+     printf("\n=================================\n");
+    printf("\n 4. START PLAY \n 5. EXIT \n");
+   printf("\n=================================\n");
+ 
 	fflush(stdin);
     scanf("%d",&user);
     printf("\n=================================\n");
@@ -77,6 +82,8 @@ char ch , H;
           scanf("%c",&x[6]);
           while(x[7] == '\0'){x[7] = '0';}
           system(x);
+          printf("-----------------------------\n\n");
+          goto like;
           break;
 
      case 2:
@@ -86,6 +93,8 @@ char ch , H;
     			fflush(stdin);
     	scanf("%c",&x[7]);
     	system(x);
+    	printf("-----------------------------\n\n");
+    	goto like;
     	break;
      case 3:
         		help();
@@ -96,38 +105,71 @@ char ch , H;
     	fflush(stdin);
     	scanf("%c",&x[7]);
     	system(x);
+    	printf("-----------------------------\n\n");
+    	goto like;
         break;
         
-      case 0:
-      		goto out;
-      		break;
-      		
-	 default :
-        		printf("\n\n Do you want to exit.......?(y/n)   ");
-        		char ch;
-        		fflush(stdin);
-        		scanf("%c",&ch);
-        if(ch == 'y' || ch == 'Y')
-        {
-            system("cls");
-            printf("\nHAVE A GOOD DAY........\n\n");
-            exit(0);
-        }
-        break;
-    }
-	
-	printf (" Do you like this color?(y/n) :	");
+      like:
+      printf (" Do you like this color?(y/n) :	");
 	fflush(stdin);
 	scanf ("%c",&H);
 	if(H=='Y' || H=='y'){
-		system( "cls" );
+		goto stargame;
 	}
 	else {
 		printf("\n\n=================================\n\n");
 		goto colorchanger;
 	}
 	
-	out:
+    }
+    
+    switch(user)
+	{
+	stargame:
+	case 4 : 
+    printf("ENTER TO START GAME\n\n");
+       printf("1.easy \t\t 2.hard\n");
+       scanf("%d",&num);
+       switch(num)
+       {
+       	case 1 :
+       		printf("You chose easy We will show you \nthe full movements of each elemnts\n To choose the easiest for you \n now ENTER TO START GAME ");
+       		ctr = 1;
+       		
+      
+       
+       case 2 :
+       printf("You chose hard  \n now ENTER TO START GAME ");
+       system( "cls" );
+       break;
+       
+    }
+	
+}
+switch(user)
+{
+
+case 5 :
+        printf("\n\n do you want to exit.......?(y/n)   ");
+        char ch;
+        fflush(stdin);
+        scanf("%c",&ch);
+        if(ch == 'y' || ch == 'Y')
+        {
+            system("cls");
+            printf("\nHAVE A GOOD DAY........\n\n  By Hosseini, Shaker \n ");
+            exit(0);
+        }
+        
+        else
+        break;
+	
+}
+      
+      
+	 
+	
+	
     //getch();
     //system( "cls" ) ;
     
@@ -156,37 +198,84 @@ char ch , H;
 
 }
 
-void delay(int ms)  //delay function
+
+void ThePawn()
 {
-    clock_t timeDelay = ms + clock();    //Step up the difference from clock delay
-    while (timeDelay > clock());         //stop when the clock is higher than time delay
+	    printf("                 \n");
+    printf("         *       \n");
+    printf("         *       \n");
+    printf("        [R]      \n");
+    printf("                 \n");
+    printf("-------------help-------------------\n");
+    printf("1- In their first move, each pawn has the option to move forward one space or two spaces \n");
+    printf("2- The Pawn can never move backwards.\n");
+    printf("3- The Pawn also has a special move called <En Passant>\n");
+    printf("4- If the Pawn reaches the opposite side of the chessboard\n"
+    "it has the unique ability to promote to another chess piece\n");
+    printf("-------------help-------------------\n");
+}
+void TheRook()
+{
+	    printf("         *       \n");
+    printf("         *       \n");
+    printf("         *       \n");
+    printf("         *       \n");
+    printf(" * * * *[R]* * * \n");
+    printf("         *       \n");
+    printf("         *       \n");
+    printf("         *       \n");
+    
 }
 
-int counter(){
-    while(!kbhit() && flag ==0){     //keep looping while the user didn't hit any key and flag is 0
-            if(minute > 59){            //after minute is greater than 59, reset minute and increase 1 hour
-                minute = 0;++hour;
-            }
-            if(second > 59){         //after second is greater than 59, reset second and increase 1 minute
-                second = 0;++minute;
-            }
-            printData();           //print out the new data, delay for 1000 millisecond and increase 1 second.
-            delay(1000);second += 1;
-        }
-        selection();    //after the user hit the keyboard, call the menu selection
+void TheQueen()
+{
+	printf(" *       *       \n");
+    printf("   *     *     * \n");
+    printf("     *   *   *   \n");
+    printf("       * * *     \n");
+    printf(" * * * *[q]* * * \n");
+    printf("       * *       \n");
+    printf("     *   *       \n");
+    printf("   *     *       \n");
 }
 
-int selection(){      // menu selection
-    switch(getch()){    //collect input from user
-    case 49: flag =0; break;        //press 1 set flag to 0 means start
-    case 50: flag =1; break;        //press 2 set flag to 1 means stop
-    case 51:
-        hour = minute = second = 0;flag = 1; //press 3 reset everything, set flag to 1 means stop
-        printData();                //print the new data after reset
-        break;
-    case 52: exit(0);;break;        //press 4, exit the program
-    }
+void Thecshop()
+{
+	   printf(" *               \n");
+    printf("   *           * \n");
+    printf("     *       *   \n");
+    printf("       *   *     \n");
+    printf("        [C]      \n");
+    printf("       *   *     \n");
+    printf("     *       *   \n");
+    printf("   *           * \n");
 }
+
+void Theking()
+{
+printf("                 \n");
+    printf("                 \n");
+    printf("                 \n");
+    printf("       * * *     \n");
+    printf("       *[k]*     \n");
+    printf("       * * *     \n");
+    printf("                 \n");
+    printf("                 \n");
+}
+
+void Thehours()
+{
+  printf("                 \n");
+    printf("                 \n");
+    printf("       *   *     \n");
+    printf("     *       *   \n");
+    printf("        [H]      \n");
+    printf("     *       *   \n");
+    printf("                 \n");
+    printf("                 \n");
+}
+
+
 
 void help()
 {
@@ -200,13 +289,7 @@ void help()
     7 = White       F = Bright White ");
 }
 
-int printData(){   //print data to screen
-system("cls");      //clear the screen
-printf("1.Start  2.Stop  3.Reset  4. End\n");       //menu for user
-printf("***********************************\n");
-printf("            %d:%d:%d\n",hour,minute,second);      //output the data
-printf("***********************************\n");
-}
+
 
 void display()
 {
@@ -707,17 +790,50 @@ void player1()
 
     switch( board[r1][c1] )
     {
-        case 'P': pawn( r1 , c1 );
+         case 'P': if(ctr == 1)
+        {
+        	 ThePawn();
+        }
+		 pawn( r1 , c1 );
                   break ;
-        case 'R': rook( r1 , c1 ) ;
+                  
+        case 'R': if(ctr == 1)
+        {
+        	TheRook();
+        }
+		rook( r1 , c1 ) ;
                   break ;
-        case 'H': horse( r1 , c1 );
+                  
+                  
+        case 'H': if(ctr == 1) 
+        {
+        	Thehours();
+        }
+		horse( r1 , c1 );
                   break ;
-        case 'C': camel( r1 , c1 );
+                  
+                  
+        case 'C': if(ctr == 1)
+        {
+            Thecshop();
+        }
+		camel( r1 , c1 );
                   break ;
-        case 'K': king( r1 , c1 ) ;
+                  
+                  
+        case 'K':  if(ctr == 1)
+		{
+		Theking();
+	}
+		king( r1 , c1 ) ;
                   break ;
-        case 'Q': queen( r1 , c1 ) ;
+                  
+                  
+        case 'Q': if(ctr == 1)
+        {
+        	TheQueen();
+        }
+		queen( r1 , c1 ) ;
                   break ;
                   
         again3:
@@ -820,17 +936,41 @@ void player2()
 
     switch( board[r1][c1] )
     {
-        case 'p': pawnb( r1 , c1 ) ;
+        case 'p': if(ctr == 1)
+        {
+        	 ThePawn();
+        }
+		pawnb( r1 , c1 ) ;
                   break ;
-        case 'r': rook( r1 , c1 ) ;
+        case 'r':if(ctr == 1)
+        {
+        	TheRook();
+        } 
+		rook( r1 , c1 ) ;
                   break ;
-        case 'h': horse( r1 , c1 ) ;
+        case 'h':if(ctr == 1) 
+        {
+        	Thehours();
+        }
+		 horse( r1 , c1 ) ;
                   break ;
-        case 'c': camel( r1 , c1 ) ;
+        case 'c': if(ctr == 1)
+        {
+            Thecshop();
+        }
+		camel( r1 , c1 ) ;
                   break ;
-        case 'k': king( r1 , c1 ) ;
+        case 'k': if(ctr == 1)
+		{
+		Theking();
+	}
+		king( r1 , c1 ) ;
                   break ;
-        case 'q': queen( r1 , c1 ) ;
+        case 'q': if(ctr == 1)
+        {
+        	TheQueen();
+        }
+		queen( r1 , c1 ) ;
                   break ;
                   
         again4:
