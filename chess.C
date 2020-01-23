@@ -224,6 +224,11 @@ void TheRook()
     printf("         *       \n");
     printf("         *       \n");
     printf("         *       \n");
+    printf("-------------help-------------------\n");
+    printf("These chess pieces move up and down the rank and file of the chessboard,\n"
+	" and can move any number of spaces as long as\n they are not obstructed by another chess piece\n");
+	printf("-------------help-------------------\n");
+	
     
 }
 
@@ -237,6 +242,9 @@ void TheQueen()
     printf("       * *       \n");
     printf("     *   *       \n");
     printf("   *     *       \n");
+     printf("-------------help-------------------\n");
+     printf("Like the King, the Queen can move in any direction\n");
+     printf("-------------help-------------------\n");
 }
 
 void Thecshop()
@@ -249,6 +257,9 @@ void Thecshop()
     printf("       *   *     \n");
     printf("     *       *   \n");
     printf("   *           * \n");
+    printf("-------------help-------------------\n");
+    printf("These chess pieces move along the diagonals of the chessboard\n");
+    printf("-------------help-------------------\n");
 }
 
 void Theking()
@@ -261,6 +272,9 @@ printf("                 \n");
     printf("       * * *     \n");
     printf("                 \n");
     printf("                 \n");
+    printf("-------------help-------------------\n");
+    printf("The King can move one space in any direction ");
+    printf("-------------help-------------------\n");
 }
 
 void Thehours()
@@ -273,6 +287,9 @@ void Thehours()
     printf("     *       *   \n");
     printf("                 \n");
     printf("                 \n");
+    printf("-------------help-------------------\n");
+    printf("hese chess pieces have the unique trait of being able to 'leap' over other chess pieces.\n");
+    printf("-------------help-------------------\n");
 }
 
 
