@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
+#include <time.h>
 
 int pwstatus[8] = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 } ; //white pawn first movement 
 int pbstatus[8] = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 } ; //black pawn first movement
@@ -27,9 +28,16 @@ void queen( int , int ) ;
 void pawnb( int , int ) ;
 void player1();
 void player2();
+void help();
 int check(int , int ) ;
 int check2(int , int ) ;
 int check3(int , int ) ;
+//timer
+int printData();  
+int selection();
+void delay(int ); 
+int counter();
+int hour=0,minute=0,second=0,flag=0;
 
 
 int turn =0;
@@ -40,23 +48,97 @@ int lim[100]={};
 
 main()
 {
+int user = '\0';
+char x[15] = "color ";
+x[6] = '\0';
+ x[7] = '\0';
 //int  x = 0 ;
-char ch ;
+char ch , H;
 	
 	system ("color 06");
 	
     printf( "\n\tWELCOME TO CHESS GAME" ) ;
     printf( "\n\n\t By Hosseini, Shaker " ) ;
+	printf("\n\n=================================\n\n");
 	
-    getch();
-    system( "cls" ) ;
+	colorchanger:
+	
+	printf(" CHANGE COLOR AS YOU LIKE ... \n  1.Background .  \n  2.Text .   \n  3.Both of Them .	\n \
+ 0.Current color .	\n Enter another number to exit ...\n");
+	fflush(stdin);
+    scanf("%d",&user);
+    printf("\n=================================\n");
+    switch(user)
+    {
+    case 1:
+                help();
+                printf("\n\n Choose any color code for background ....");
+                fflush(stdin);
+          scanf("%c",&x[6]);
+          while(x[7] == '\0'){x[7] = '0';}
+          system(x);
+          break;
+
+     case 2:
+        		help();
+           		printf(" \n\n Choose any color code for text ...  ");
+      			while(x[6] == '\0'){ x[6] = '0';}
+    			fflush(stdin);
+    	scanf("%c",&x[7]);
+    	system(x);
+    	break;
+     case 3:
+        		help();
+        		printf(" \n\n Color code for background...  =  ");
+    	fflush(stdin);
+    	scanf("%c",&x[6]);
+    	printf(" \n\n Color code for text...  =  ");
+    	fflush(stdin);
+    	scanf("%c",&x[7]);
+    	system(x);
+        break;
+        
+      case 0:
+      		goto out;
+      		break;
+      		
+	 default :
+        		printf("\n\n Do you want to exit.......?(y/n)   ");
+        		char ch;
+        		fflush(stdin);
+        		scanf("%c",&ch);
+        if(ch == 'y' || ch == 'Y')
+        {
+            system("cls");
+            printf("\nHAVE A GOOD DAY........\n\n");
+            exit(0);
+        }
+        break;
+    }
+	
+	printf (" Do you like this color?(y/n) :	");
+	fflush(stdin);
+	scanf ("%c",&H);
+	if(H=='Y' || H=='y'){
+		system( "cls" );
+	}
+	else {
+		printf("\n\n=================================\n\n");
+		goto colorchanger;
+	}
+	
+	out:
+    //getch();
+    //system( "cls" ) ;
     
 
  do
  {
  turn++ ;
  system( "cls" ) ;
+
  display();
+ 
 
  if( (turn%2) == 0 )
  {
@@ -72,6 +154,58 @@ char ch ;
  ch = getch();
  }while( ch == 13 ) ;
 
+}
+
+void delay(int ms)  //delay function
+{
+    clock_t timeDelay = ms + clock();    //Step up the difference from clock delay
+    while (timeDelay > clock());         //stop when the clock is higher than time delay
+}
+
+int counter(){
+    while(!kbhit() && flag ==0){     //keep looping while the user didn't hit any key and flag is 0
+            if(minute > 59){            //after minute is greater than 59, reset minute and increase 1 hour
+                minute = 0;++hour;
+            }
+            if(second > 59){         //after second is greater than 59, reset second and increase 1 minute
+                second = 0;++minute;
+            }
+            printData();           //print out the new data, delay for 1000 millisecond and increase 1 second.
+            delay(1000);second += 1;
+        }
+        selection();    //after the user hit the keyboard, call the menu selection
+}
+
+int selection(){      // menu selection
+    switch(getch()){    //collect input from user
+    case 49: flag =0; break;        //press 1 set flag to 0 means start
+    case 50: flag =1; break;        //press 2 set flag to 1 means stop
+    case 51:
+        hour = minute = second = 0;flag = 1; //press 3 reset everything, set flag to 1 means stop
+        printData();                //print the new data after reset
+        break;
+    case 52: exit(0);;break;        //press 4, exit the program
+    }
+}
+
+void help()
+{
+     printf("\n\n    0 = Black       8 = Gray\n\
+    1 = Blue        9 = Light Blue\n\
+    2 = Green       A = Light Green\n\
+    3 = Aqua        B = Light Aqua\n\
+    4 = Red         C = Light Red\n\
+    5 = Purple      D = Light Purple\n\
+    6 = Yellow      E = Light Yellow\n\
+    7 = White       F = Bright White ");
+}
+
+int printData(){   //print data to screen
+system("cls");      //clear the screen
+printf("1.Start  2.Stop  3.Reset  4. End\n");       //menu for user
+printf("***********************************\n");
+printf("            %d:%d:%d\n",hour,minute,second);      //output the data
+printf("***********************************\n");
 }
 
 void display()
@@ -92,6 +226,8 @@ void display()
 
     printf( "  " ) ;
     for( i=0 ; i<42 ; i++ ) { printf( "-" ) ; } printf( "\n" ) ;
+    
+    
 
 }
 
@@ -813,4 +949,3 @@ int check3(int x , int y)
 		return check(x,y);
 	}
 }
-
