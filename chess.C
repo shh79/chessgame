@@ -225,7 +225,7 @@ void difficulty()
 	int num;
 	printf("\n=================================\n\n");
 	
-	printf("1- singl player \n\n 2- two player\n");
+	printf(" 1- singl player \n\n 2- two player\n ");
 	scanf("%d",&num);
 	switch(num)
 	{
@@ -234,6 +234,7 @@ void difficulty()
 			break;
 			
 		case 2 :
+			md=0;
 			break;
 	
 	}
@@ -1628,11 +1629,30 @@ void artmind()
         default: goto random ;
     }
     
+    i=0;
     
+    random2:
   
+    if (lim[i] != 0){
+    	c2=lim[i] % 10;
+    	r2=lim[i] / 10;
+	}
+	else {
+		goto random;
+	}
     
-    c2=lim[0] % 10;
-    r2=lim[0] / 10;
+    if (c1==c2 && r1==r2) {
+    	++i;
+    	goto random2;
+	}
+    
+    
+    
+    if (check(r2,c2)==1) {
+    	++i;
+    	goto random2;
+	} 
+    
     
     if (check2(r2,c2)==1){
     	
