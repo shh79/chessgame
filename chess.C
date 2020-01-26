@@ -91,15 +91,13 @@ main()
 
  if( (turn%2) == 0 )
  {
-          if(md == 1)
-          {
-          	  artmind();
-          }
-		if ( md == 0)
-		{
-			 player2();
-		}
-		   
+            if(md == 1){
+            	artmind();
+            }
+			
+			else{
+				player2();
+			}
             
  }
  else
@@ -226,21 +224,20 @@ void difficulty()
 	int b;
 	int num;
 	printf("\n=================================\n\n");
-	       printf("1- single player \n\n 2- two player \n");
-	       scanf("%d",&num);
-	       switch(num)
-	       {
-	       	case 1 :
-	       		md = 1;
-	       		
-	       		break;
-	       		
-	       	case 2 :
-	       		md =0;
-	       		
-	       		break;
-	       }
-	       
+	
+	printf("1- singl player \n\n 2- two player\n");
+	scanf("%d",&num);
+	switch(num)
+	{
+		case 1 :
+			md = 1;
+			break;
+			
+		case 2 :
+			break;
+	
+	}
+	
 			
 			printf(" 1.easy \t 2.hard\n ");
        		scanf("%d",&b);
