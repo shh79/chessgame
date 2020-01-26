@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
+#include<time.h>
 
 
 int pwstatus[8] = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 } ; //white pawn first movement 
@@ -26,6 +27,15 @@ void camel( int , int ) ;
 void king( int , int ) ;
 void queen( int , int ) ;
 void pawnb( int , int ) ;
+//start of artmind
+void mpawn(int , int ) ;
+void mrook(int , int ) ;
+void mhorse(int , int ) ;
+void mcamel( int , int ) ;
+void mking( int , int ) ;
+void mqueen( int , int ) ;
+void mpawnb( int , int ) ;
+//end of artmind
 void player1();
 void player2();
 void help();
@@ -45,6 +55,9 @@ void Thehours();
 void TheRook();
 void ThePawn();
 
+void artmind();
+
+int md=0;
 
 int ctr=0;
 
@@ -79,6 +92,7 @@ main()
  if( (turn%2) == 0 )
  {
             player2();
+            //artmind();
  }
  else
  {
@@ -904,6 +918,408 @@ void pawnb( int r1 , int c1 ) // paido black
 
 }
 
+
+//start of artmind
+
+
+void mpawn( int r1 , int c1 ) // paido
+{
+    int i;
+    
+	pwstatus[c1]++;
+	
+	
+	for (i=0;i<100;++i){
+		lim[i]=0;
+	}
+	
+	i=0;
+	
+
+   if( pwstatus[c1] == 1 )
+    {
+        if( board[r1+1][c1] == ' ' ){
+        	lim[i]=((r1+1)*10)+c1;
+        	++i;
+    	}
+
+        if( board[r1+2][c1] == ' ' ){
+			lim[i]=((r1+2)*10)+c1;
+        	++i;
+		}
+	
+    }
+    else
+    {
+        if(board[r1+1][c1] == ' ' ){
+        	lim[i]=((r1+1)*10)+c1;
+        	++i;
+		}
+        if( check(r1+1 , c1+1) == 1 ){
+        	lim[i]=((r1+1)*10)+(c1+1);
+        	++i;
+		}
+        if( check(r1+1 , c1-1) == 1 ){
+        	lim[i]=((r1+1)*10)+(c1-1);
+        	++i;
+		}
+	
+	
+	}
+
+}
+
+void mrook( int r1 , int c1 )
+{
+    int i , j , n , k=0;
+
+
+    n=c1;
+	
+
+    while( board[r1][n-1] == ' ' || check3(r1,n-1) )
+    {
+        if( n == 0 ) { break ; }
+        lim[k]=(r1*10)+(n-1);
+        ++k;
+        n-- ;
+    }
+
+    n=c1 ;
+
+    while( ( board[r1][n+1] == ' ' || check3(r1,n+1) ) && (n+1) <= 7 )
+    {
+
+        lim[k]=(r1*10)+(n+1);
+        ++k;
+        ++n ;
+    }
+
+
+    n = r1 ;
+
+    while( ( board[n-1][c1] == ' ' || check3(n-1,c1) ) && n > -1 )
+    {
+        lim[k]=((n-1)*10)+c1;
+        ++k;
+        --n ;
+    }
+
+    n = r1 ;
+
+    while( (board[n+1][c1] == ' ' || check3(n+1,c1) ) && ( (n) <= 7 ) )
+    {
+        lim[k]=((n+1)*10)+c1;
+        ++k;
+        ++n ;
+    }
+
+}
+
+void mhorse( int r1 , int c1 )
+{
+	int i=0;
+
+
+    if( board[r1+2][c1+1] == ' ' || check3(r1+2,c1+1) ){
+		lim[i]=((r1+2)*10)+(c1+1);
+		++i;
+	}
+    if( board[r1+2][c1-1] == ' ' || check3(r1+2,c1-1) ) { 
+		if( (c1-1) > -1 ){
+			lim[i]=((r1+2)*10)+(c1-1);
+			++i;
+		}
+	}
+
+    if( board[r1+1][c1+2] == ' ' || check3(r1+1,c1+2) ) {  
+		if( (c1+2) != 8 ){
+			lim[i]=((r1+1)*10)+(c1+2);
+			++i;
+		}
+	}
+    if( board[r1-1][c1+2] == ' ' || check3(r1-1,c1+2) ) {  
+		lim[i]=((r1-1)*10)+(c1+2);
+		++i;
+	}
+
+    if( board[r1-2][c1-1] == ' ' || check3(r1-2,c1-1) )
+    {
+        if( (c1-1) != -1 ){
+        	lim[i]=((r1-2)*10)+(c1-1);
+        	++i;
+    	}
+    }
+
+    if( board[r1-2][c1+1] == ' ' || check3(r1-2,c1+1) ) {
+		lim[i]=((r1-2)*10)+(c1+1);
+		++i;
+	}
+
+    if( board[r1+1][c1-2] == ' ' || check3(r1+1,c1-2) ) {
+		lim[i]=((r1+1)*10)+(c1-2);
+		++i;
+	}
+
+    if( board[r1-1][c1-2] == ' ' || check3(r1-1,c1-2) )
+    {
+        if( (c1-2) != -1 ){
+        	lim[i]=((r1-1)*10)+(c1-2);
+			++i;  
+        }
+    }
+}
+
+
+void mcamel( int r1 , int c1 )
+{
+    int a , b , c , d , i=0;
+
+
+    a = 1 , b = 1 ;
+
+    while( board[r1-a][c1+b] == ' ' || check3(r1-a,c1+b) )
+    {
+        if( (r1-a) == -1 || (c1+b) == 8 ) break ;
+        lim[i]=((r1-a)*10)+(c1+b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+
+    a = 1 , b = 1 ;
+
+    while( board[r1+a][c1-b] == ' ' || check3(r1+a,c1-b) )
+    {
+        if( (r1+a) == 8 || (c1-b) == -1 ) break ;
+        lim[i]=((r1+a)*10)+(c1-b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+    a = 1 , b = 1 ;
+
+
+    while( board[r1+a][c1+b] == ' ' || check3(r1+a,c1+b) )
+    {
+        if( (r1+a) == 8 || (c1+b) == 8 ) break ;
+        lim[i]=((r1+a)*10)+(c1+b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+    a = 1 ;
+    b = 1 ;
+
+    while( board[r1-a][c1-b] == ' ' || check3(r1-a,c1-b) )
+    {
+        if( (r1-a) == -1 || (c1-b) == -1 ) break ;
+        lim[i]=((r1-a)*10)+(c1-b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+}
+
+void mking( int r1 , int c1 )
+{
+	int i=0;
+								
+    if( board[r1][c1+1] == ' ' || check3(r1,c1+1) ) {
+		lim[i]=((r1)*10)+(c1+1);
+		++i;
+	}
+
+    if( board[r1][c1-1] == ' ' || check3(r1,c1-1) ) {
+		lim[i]=((r1)*10)+(c1-1);
+		++i;
+	}
+
+    if( board[r1+1][c1] == ' ' || check3(r1+1,c1) ) {
+		lim[i]=((r1+1)*10)+(c1);
+		++i;
+	}
+
+    if( board[r1-1][c1] == ' ' || check3(r1-1,c1) ) {
+		lim[i]=((r1-1)*10)+(c1);
+		++i;
+	}
+
+    if( board[r1+1][c1+1] == ' ' || check3(r1+1,c1+1) ) {
+		lim[i]=((r1+1)*10)+(c1+1);
+		++i;
+	}
+
+    if( board[r1-1][c1-1] == ' ' || check3(r1-1,c1-1) ) {
+		lim[i]=((r1-1)*10)+(c1-1);
+		++i;
+	}
+
+    if( board[r1-1][c1+1] == ' ' || check3(r1-1,c1+1) ) {
+		lim[i]=((r1-1)*10)+(c1+1);
+		++i;
+	}
+
+    if( board[r1+1][c1-1] == ' ' || check3(r1+1,c1-1) ) {
+		lim[i]=((r1+1)*10)+(c1-1);
+		++i;
+	}
+    
+    
+}
+
+void mqueen( int r1 , int c1 )
+{
+    int x=1 , y=1 , a , b , i=0;
+
+
+    while( board[r1][c1-y] == ' ' || check3(r1,c1-y) )
+    {
+        if( (c1-y) == -1 ) break ;
+        lim[i]=((r1)*10)+(c1-y);
+        ++i;
+        y++ ;
+    }
+
+    y = 1 ;
+
+    while( board[r1][c1+y] == ' ' || check3(r1,c1+y) )
+    {
+        if( (c1+y) == 8 ) break ;
+        lim[i]=((r1)*10)+(c1+y);
+        ++i;
+        y++ ;
+    }
+	
+
+    x = 1 ;
+
+    while( board[r1-x][c1] == ' ' || check3(r1-x,c1) )
+    {
+        if( (r1-x) == -1 ) break ;
+        lim[i]=((r1-x)*10)+(c1);
+        ++i;
+        x++ ;
+    }
+
+    x = 1 ;
+
+    while( board[r1+x][c1] == ' ' || check3(r1+x,c1) )
+    {
+        if( (r1+x) == 8 ) break ;
+        lim[i]=((r1+x)*10)+(c1);
+        ++i;
+        x++ ;
+    }
+
+
+    a = 1 , b = 1 ;
+
+    while( board[r1-a][c1+b] == ' ' || check3(r1-a,c1+b) )
+    {
+        if( (r1-a) == -1 || (c1+b) == 8 ) break ;
+        lim[i]=((r1-a)*10)+(c1+b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+
+    a = 1 , b = 1 ;
+
+    while( board[r1+a][c1-b] == ' ' || check3(r1+a,c1-b) )
+    {
+        if( (r1+a) == 8 || (c1-b) == -1 ) break ;
+        lim[i]=((r1+a)*10)+(c1-b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+    a = 1 , b = 1 ;
+
+
+    while( board[r1+a][c1+b] == ' ' || check3(r1+a,c1+b) )
+    {
+        if( (r1+a) == 8 || (c1+b) == 8 ) break ;
+        lim[i]=((r1+a)*10)+(c1+b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+    a = 1 ;
+    b = 1 ;
+
+    while( board[r1-a][c1-b] == ' ' || check3(r1-a,c1-b) )
+    {
+        if( (r1-a) == -1 || (c1-b) == -1 ) break ;
+        lim[i]=((r1-a)*10)+(c1-b);
+        ++i;
+        a++ ;
+        b++ ;
+    }
+
+}
+
+void mpawnb( int r1 , int c1 ) // paido black
+{
+    pbstatus[c1]++;
+    
+    
+    int i;
+	
+	
+	for (i=0;i<100;++i){
+		lim[i]=0;
+	}
+	
+	i=0;
+	
+
+
+
+    if( pbstatus[c1] == 1 )
+    {
+        if( board[r1-1][c1] == ' ' ){
+			lim[i]=((r1-1)*10)+c1;
+        	++i;
+		}
+        if( board[r1-2][c1] == ' ' ){
+        	lim[i]=((r1-2)*10)+c1;
+        	++i;
+    	}
+    	
+    }
+    else
+    {
+        if(board[r1-1][c1] == ' ' ){
+        	lim[i]=((r1-1)*10)+c1;
+        	++i;
+		}
+        if( check2(r1-1 , c1-1) == 1 ){
+			lim[i]=((r1-1)*10)+(c1-1);
+        	++i;
+		}
+        if( check2(r1-1 , c1+1) == 1 ){
+        	lim[i]=((r1-1)*10)+(c1+1);
+        	++i;
+    	}
+    }
+
+}
+
+
+//end of artmind
+
+
+
+
+
 void player1()
 {
     int p1 , p2 , c1 , r1 , c2 , r2 , i , j;
@@ -1140,6 +1556,78 @@ void player2()
      
     
 }
+
+
+
+void artmind()
+{
+	int p1 , p2 , r1 , c1 , r2 , c2 , i , j;
+	
+	printf( "\nPC - Small Case") ;
+    printf("\tWHITE KILL: %d\tBLACK KILL: %d\n",killw,killb);
+	
+	random:
+		
+	for (i=0;i<100;++i){
+		lim[i]=0;
+	}
+		
+	srand( time( NULL ) );
+	
+	r1=rand() % 8;
+	c1=rand() % 8;
+	
+	p1=(r1*10)+c1;
+	
+	switch( board[r1][c1] )
+    {
+        case 'p':
+		mpawnb( r1 , c1 ) ;
+                  break ;
+                  
+        case 'r':
+		mrook( r1 , c1 ) ;
+                  break ;
+                  
+        case 'h':
+		 mhorse( r1 , c1 ) ;
+                  break ;
+                  
+        case 'c':
+		mcamel( r1 , c1 ) ;
+                  break ;
+        case 'k':
+		mking( r1 , c1 ) ;
+                  break ;
+                  
+        case 'q': 
+		mqueen( r1 , c1 ) ;
+                  break ;
+                  
+        default: goto random ;
+    }
+    
+    
+  
+    
+    c2=lim[0] % 10;
+    r2=lim[0] / 10;
+    
+    if (check2(r2,c2)==1){
+    	
+    	board[r2][c2]=' ';
+    	++killb;
+    	change(r1,c1,r2,c2);
+	}
+	else {
+		change(r1,c1,r2,c2);
+	}
+    	
+}
+
+
+
+
 
 int check(int x , int y )
 {
