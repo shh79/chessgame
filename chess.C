@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
-#include <time.h>
+
 
 int pwstatus[8] = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 } ; //white pawn first movement 
 int pbstatus[8] = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 } ; //black pawn first movement
@@ -33,6 +33,7 @@ int check(int , int ) ;
 int check2(int , int ) ;
 int check3(int , int ) ;
 void menu(void);
+void welcome(void);
 void colorchanger();
 void setting();
 void difficulty();
@@ -57,9 +58,10 @@ main()
 {
 	char ch;
 	system ("color 06");
-	printf( "\n\tWELCOME TO CHESS GAME" ) ;
-    printf( "\n\n\t By Hosseini, Shaker " ) ;
-	printf("\n\n=================================\n\n");
+	//printf( "\n\tWELCOME TO CHESS GAME" ) ;
+    //printf( "\n\n\t By Hosseini, Shaker " ) ;
+    welcome();
+	//printf("\n\n=================================\n\n");
 	menu();
 	
     //getch();
@@ -86,18 +88,24 @@ main()
  printf( " \n\nPress Enter To Continue ! \n\n " ) ;
 
  ch = getch();
- }while( ch == 13 ) ;
+ }while( ch==13 ) ;
 
 }
 
-
+void welcome (void)
+{
+	printf("####################################\n");
+	printf("#	WELCOME TO CHESS GAME  	   #\n");
+	printf("#	   By Hosseini, Shaker     #\n");
+	printf("####################################\n\n");
+}
 
 void setting()
 {
 	int num;
 	system("cls");
 	printf("=================================\n");
-	printf ("\n 1.Change Color\n 0.Back\n");
+	printf ("\n 1.Change Color\n 0.Back\n ");
 	scanf("%d",&num);
 	switch (num)
 	{
@@ -105,6 +113,8 @@ void setting()
 			colorchanger();
 			break;
 		case 0:
+			system("cls");
+			printf("=================================\n");
 			menu();
 	}	
 }
@@ -123,8 +133,11 @@ void colorchanger()
 	
 	system("cls");
 	
+	printf("=================================\n");
+
+	
 	printf(" CHANGE COLOR AS YOU LIKE ... \n  1.Background .  \n  2.Text .   \n  3.Both of Them .	\n \
- 0.Current color .\n");
+ 0.Current color .\n  ");
 	fflush(stdin);
     scanf("%d",&user);
     printf("\n=================================\n");
@@ -135,7 +148,12 @@ void colorchanger()
                 printf(" \n\n Color code for background...  =  ");
                 fflush(stdin);
           scanf("%c",&x[6]);
-          while(x[7] == '\0'){x[7] = '0';}
+          	if (x[6] != '0'){
+          		while(x[7] == '\0'){x[7] = '0';}
+      		}
+      		if (x[6] == '0') {
+      			x[7]='6';
+			  }
           system(x);
           break;
 
@@ -184,14 +202,15 @@ void colorchanger()
 void difficulty()
 {
 	int b;
-	printf("\n=================================\n");
+	printf("\n=================================\n\n");
 			
-			printf("1.easy \t\t 2.hard\n");
+			printf(" 1.easy \t 2.hard\n ");
        		scanf("%d",&b);
        			switch(b)
        			{
        				case 1 :
-       					printf("You choose easy We will show you \nthe full movements of each elemnts\n To choose the easiest for you \n now ENTER TO START GAME ");
+       					printf(" You choose easy We will show you \n the full movements\
+ of each elemnts\n To choose the easiest for you \n Now ENTER TO START THE GAME ");
        					ctr = 1;
        					getch();
        					break;
@@ -199,7 +218,7 @@ void difficulty()
       
        
         			case 2 :
-        				printf("You choose hard  \n now ENTER TO START GAME ");
+        				printf(" You choose hard  \n now ENTER TO START THE GAME ");
         				getch();
         				system( "cls" );
         				break;
@@ -234,7 +253,7 @@ int rate=0;
 	
 
 	
-    printf(" 1.Start Game\n 2.Setting\n 3.exit\n");
+    printf(" 1.Start Game\n 2.Setting\n 3.exit\n ");
 	scanf ("%d",&a);
 	switch (a)
 	{
@@ -249,8 +268,9 @@ int rate=0;
 			
 		case 3:
 			system("cls");
-			printf("Thank you for choosing us...\n");
-			printf("Please rate us(1-5)\n");
+			printf ("====================================\n\n");
+			printf(" Thank you for choosing us...\n");
+			printf(" Please rate us(1-5)\n ");
 			rate:
 			scanf("%d",&rate);
 			if (rate>0 && rate<6)
@@ -258,19 +278,19 @@ int rate=0;
 			switch(rate)
 			{
 				case 1:
-					printf("*\n");
+					printf(" *\n");
 					break;
 				case 2:
-					printf("**\n");
+					printf(" **\n");
 					break;
 				case 3:
-					printf("***\n");
+					printf(" ***\n");
 					break;
 				case 4:
-					printf("****\n");
+					printf(" ****\n");
 					break;
 				case 5:
-					printf("*****\n");
+					printf(" *****\n");
 					break;	
 			}
 			}
@@ -278,6 +298,7 @@ int rate=0;
 				printf("it's out of range .try again...\n");
 				goto rate;
 			}
+			printf("      Created by Hosseini , Shaker");
 			exit(0);
 			break;
 	}
@@ -327,33 +348,33 @@ void display()
 
 void ThePawn()
 {
-	    printf("                 \n");
+	printf("                 \n");
     printf("         *       \n");
     printf("         *       \n");
-    printf("        [R]      \n");
+    printf("        [P]      \n");
     printf("                 \n");
-    printf("-------------help-------------------\n");
+    printf("---------------------------------help----------------------------------\n");
     printf("1- In their first move, each pawn has the option to move forward one space or two spaces \n");
     printf("2- The Pawn can never move backwards.\n");
     printf("3- The Pawn also has a special move called <En Passant>\n");
-    printf("4- If the Pawn reaches the opposite side of the chessboard\n"
-    "it has the unique ability to promote to another chess piece\n");
-    printf("-------------help-------------------\n");
+    
+    printf("---------------------------------help----------------------------------\n\n");
 }
 void TheRook()
 {
-	    printf("         *       \n");
+	printf("         *       \n");
     printf("         *       \n");
     printf("         *       \n");
     printf("         *       \n");
-    printf(" * * * *[R]* * * \n");
+    printf(" * * * *[R]* * * * \n");
     printf("         *       \n");
     printf("         *       \n");
     printf("         *       \n");
-    printf("-------------help-------------------\n");
+    printf("         *       \n");
+    printf("------------------------------------help-----------------------------------\n");
     printf("These chess pieces move up and down the rank and file of the chessboard,\n"
 	" and can move any number of spaces as long as\n they are not obstructed by another chess piece\n");
-	printf("-------------help-------------------\n");
+	printf("------------------------------------help-----------------------------------\n\n");
 	
     
 }
@@ -365,17 +386,17 @@ void TheQueen()
     printf("     *   *   *   \n");
     printf("       * * *     \n");
     printf(" * * * *[q]* * * \n");
-    printf("       * *       \n");
-    printf("     *   *       \n");
-    printf("   *     *       \n");
-     printf("-------------help-------------------\n");
+    printf("       * * *       \n");
+    printf("     *   *   *    \n");
+    printf("   *     *     *  \n");
+     printf("----------------------help-----------------------\n");
      printf("Like the King, the Queen can move in any direction\n");
-     printf("-------------help-------------------\n");
+     printf("----------------------help-----------------------\n\n");
 }
 
 void Thecshop()
 {
-	   printf(" *               \n");
+	printf(" *               \n");
     printf("   *           * \n");
     printf("     *       *   \n");
     printf("       *   *     \n");
@@ -383,14 +404,14 @@ void Thecshop()
     printf("       *   *     \n");
     printf("     *       *   \n");
     printf("   *           * \n");
-    printf("-------------help-------------------\n");
+    printf("-----------------------------help----------------------------\n");
     printf("These chess pieces move along the diagonals of the chessboard\n");
-    printf("-------------help-------------------\n");
+    printf("-----------------------------help----------------------------\n\n");
 }
 
 void Theking()
 {
-printf("                 \n");
+	printf("                 \n");
     printf("                 \n");
     printf("                 \n");
     printf("       * * *     \n");
@@ -398,24 +419,24 @@ printf("                 \n");
     printf("       * * *     \n");
     printf("                 \n");
     printf("                 \n");
-    printf("-------------help-------------------\n");
-    printf("The King can move one space in any direction ");
-    printf("-------------help-------------------\n");
+    printf("--------------------help--------------------\n");
+    printf("The King can move one space in any direction\n");
+    printf("--------------------help--------------------\n\n");
 }
 
 void Thehours()
 {
-  printf("                 \n");
+  	//printf("                 \n");
     printf("                 \n");
     printf("       *   *     \n");
     printf("     *       *   \n");
     printf("        [H]      \n");
     printf("     *       *   \n");
+    printf("        *  *       \n");
     printf("                 \n");
-    printf("                 \n");
-    printf("-------------help-------------------\n");
-    printf("hese chess pieces have the unique trait of being able to 'leap' over other chess pieces.\n");
-    printf("-------------help-------------------\n");
+    printf("----------------------------------help----------------------------------\n");
+    printf("These chess pieces have the unique trait of being able to 'leap' over other chess pieces.\n");
+    printf("----------------------------------help----------------------------------\n\n");
 }
 
 
@@ -725,7 +746,7 @@ void king( int r1 , int c1 )
 void queen( int r1 , int c1 )
 {
     int x=1 , y=1 , a , b , i=0;
-    printf( "Available are: " ) ;
+    printf( "Available are: \n" ) ;
 
     printf( "Horizontal: " ) ;
 
@@ -748,7 +769,8 @@ void queen( int r1 , int c1 )
         ++i;
         y++ ;
     }
-
+	printf("\n");
+	
     printf( "Vertical: " ) ;
 
     x = 1 ;
@@ -772,6 +794,7 @@ void queen( int r1 , int c1 )
         ++i;
         x++ ;
     }
+	printf("\n");
 
     printf( "Diagonally: " ) ;
 
@@ -969,7 +992,7 @@ void player1()
 	}
 	
 	if(j==100){
-		printf("Invalid Position !");
+		printf("Invalid Position !!! Please choose another charcter .");
 		goto again1;
 	}
 	
@@ -1083,7 +1106,7 @@ void player2()
 	}
 	
 	if(j==100){
-		printf("Invalid Position !");
+		printf("Invalid Position !!! Please choose another charcter .");
 		goto again2;
 	}
     
