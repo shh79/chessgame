@@ -36,7 +36,7 @@ void menu(void);
 void colorchanger();
 void setting();
 void difficulty();
-//ghasem male roy ina kar kon
+
 void TheQueen();
 void Theking();
 void Thecshop();
@@ -902,17 +902,50 @@ void player1()
 
     switch( board[r1][c1] )
     {
-        case 'P': pawn( r1 , c1 );
+        case 'P': if(ctr == 1)
+        {
+        	 ThePawn();
+        }
+		 pawn( r1 , c1 );
                   break ;
-        case 'R': rook( r1 , c1 ) ;
+                  
+        case 'R': if(ctr == 1)
+        {
+        	TheRook();
+        }
+		rook( r1 , c1 ) ;
                   break ;
-        case 'H': horse( r1 , c1 );
+                  
+                  
+        case 'H': if(ctr == 1) 
+        {
+        	Thehours();
+        }
+		horse( r1 , c1 );
                   break ;
-        case 'C': camel( r1 , c1 );
+                  
+                  
+        case 'C': if(ctr == 1)
+        {
+            Thecshop();
+        }
+		camel( r1 , c1 );
                   break ;
-        case 'K': king( r1 , c1 ) ;
+                  
+                  
+        case 'K':  if(ctr == 1)
+		{
+		Theking();
+	}
+		king( r1 , c1 ) ;
                   break ;
-        case 'Q': queen( r1 , c1 ) ;
+                  
+                  
+        case 'Q': if(ctr == 1)
+        {
+        	TheQueen();
+        }
+		queen( r1 , c1 ) ;
                   break ;
                   
         again3:
@@ -937,7 +970,7 @@ void player1()
 	
 	if(j==100){
 		printf("Invalid Position !");
-		goto again5;
+		goto again1;
 	}
 	
 	
@@ -992,17 +1025,41 @@ void player2()
 
     switch( board[r1][c1] )
     {
-        case 'p': pawnb( r1 , c1 ) ;
+        case 'p': if(ctr == 1)
+        {
+        	 ThePawn();
+        }
+		pawnb( r1 , c1 ) ;
                   break ;
-        case 'r': rook( r1 , c1 ) ;
+        case 'r':if(ctr == 1)
+        {
+        	TheRook();
+        } 
+		rook( r1 , c1 ) ;
                   break ;
-        case 'h': horse( r1 , c1 ) ;
+        case 'h':if(ctr == 1) 
+        {
+        	Thehours();
+        }
+		 horse( r1 , c1 ) ;
                   break ;
-        case 'c': camel( r1 , c1 ) ;
+        case 'c': if(ctr == 1)
+        {
+            Thecshop();
+        }
+		camel( r1 , c1 ) ;
                   break ;
-        case 'k': king( r1 , c1 ) ;
+        case 'k': if(ctr == 1)
+		{
+		Theking();
+	}
+		king( r1 , c1 ) ;
                   break ;
-        case 'q': queen( r1 , c1 ) ;
+        case 'q': if(ctr == 1)
+        {
+        	TheQueen();
+        }
+		queen( r1 , c1 ) ;
                   break ;
                   
         again4:
@@ -1027,7 +1084,7 @@ void player2()
 	
 	if(j==100){
 		printf("Invalid Position !");
-		goto again6;
+		goto again2;
 	}
     
     c2 = p2 % 10 ;
@@ -1098,3 +1155,4 @@ int check3(int x , int y)
 		return check(x,y);
 	}
 }
+
