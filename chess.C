@@ -521,6 +521,7 @@ void pawn( int r1 , int c1 ) // paido
 			lim[i]=((r1+2)*10)+c1;
         	++i;
 		}
+		
 	
     }
     else
